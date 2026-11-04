@@ -1536,8 +1536,9 @@ func (s *Server) handleClientGuide(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
+	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(guide))
+	_, _ = w.Write([]byte(html.EscapeString(guide)))
 }
 
 // GET /vibebackr.mcpb
